@@ -655,8 +655,8 @@ const TeamMemberCard = ({ name, role, emoji, bio }) => (
       <h3 className="font-pixel text-[10px] md:text-xs mb-2 uppercase">
         {name}
       </h3>
-      <div className="inline-block bg-[#ff7eb615] px-3 py-1 border-[2px] border-[#ff7eb6]">
-        <p className="font-pixel text-[8px] md:text-[10px] text-[#ff7eb6] uppercase leading-none">
+      <div className="inline-block bg-[#ff7eb615] px-3 py-1 border-[2px] border-[#ff7eb6] ">
+        <p className="font-pixel text-[8px] md:text-[10px] text-[#ff7eb6] uppercase leading-relaxed ">
           {role}
         </p>
       </div>
