@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import Pim_Profile from "./assets/Pim_Profile.png";
 import {
   Gamepad2,
   Users,
@@ -535,6 +536,7 @@ const PartyScene = () => (
         bio="Frontend สายดีไซน์ โค้ดลื่นไหล พร้อมพลังงานจากชาไทยแก้วโปรด"
       />
       <TeamMemberCard
+<<<<<<< HEAD
         name="Lalitwadee Tangsriwong"
         role="Frontend Developer"
         emoji="🧙‍♂️"
@@ -569,6 +571,12 @@ const PartyScene = () => (
         role="FullStack Developer"
         emoji="🧙‍♂️"
         bio="Full Stack สายอเนกประสงค์ รับมือได้ทุกงาน และพร้อมซัพพอร์ตทีมทุกสถานการณ์"
+=======
+        name="Sky"
+        role="Project Mage"
+        emoji={<img src={Pim_Profile} alt="Pim_Profile" />}
+        bio="PM ผู้ดูแลโปรเจกต์และปกป้องทีมเพื่อให้ภารกิจสำเร็จลุล่วง"
+>>>>>>> 38853c867ca4d4c46e157fd63493229d614a0030
       />
     </div>
   </GameWindow>
