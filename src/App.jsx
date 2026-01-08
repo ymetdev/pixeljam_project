@@ -7,7 +7,7 @@ import Potter_Profile from "./assets/Potter_Profile.png";
 import Dos_Profile from "./assets/Dos_Profile.png";
 import Nut_Profile from "./assets/Nut_Profile.png";
 import Fink_Profile from "./assets/Fink_Profile.png";
-
+import emailjs from "@emailjs/browser"; // อย่าลืม import เพิ่มด้านบน
 import {
   Gamepad2,
   Users,
@@ -584,7 +584,7 @@ const PartyScene = () => (
       />
     </div> */}
 
-<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
       <TeamMemberCard
         name="Nattakit Rattanarak"
         role="Project Manager"
@@ -603,44 +603,39 @@ const PartyScene = () => (
         emoji={<img src={Aim_Profile} alt="Aim_Profile" />}
         bio="Frontend ผู้เชื่อว่า “99 ใน Roblox คือที่สุด” และ UI ต้องปังเหมือนเลเวลอัป"
       />
-       <TeamMemberCard
+      <TeamMemberCard
         name="Onphairin Chandee"
         role="UX/UI Designer"
         emoji={<img src={Fink_Profile} alt="Fink_Profile" />}
         bio="นักออกแบบ UX/UI ผู้เปลี่ยนไอเดียให้กลายเป็นประสบการณ์ที่ใช้ง่ายและสวยงาม"
       />
-       <TeamMemberCard
+      <TeamMemberCard
         name="Kirati Amathin"
         role="Testter"
         emoji={<img src={Tata_Profile} alt="Tata_Profile" />}
         bio="Tester สายบู๊ ลุยทุกบั๊ก ไม่ปล่อยให้เออเรอร์รอดออกไปจากระบบ"
       />
-       <TeamMemberCard
+      <TeamMemberCard
         name="Kritphat Onsuwan"
         role="FullStack Developer"
         emoji={<img src={Nut_Profile} alt="Nut_Profile" />}
         bio="Full Stack ที่ขับได้ครบทุกเกียร์ จัดการได้ทั้งหน้าเว็บและหลังบ้าน"
       />
-       <TeamMemberCard
+      <TeamMemberCard
         name="Sutthipong Pikunyam"
         role="FullStack Developer"
         emoji={<img src={Dos_Profile} alt="Dos_Profile" />}
         bio="Full Stack ผู้ดูแลหลายส่วนของระบบ พร้อมเชื่อมทุกอย่างให้ทำงานร่วมกันอย่างลงตัว"
       />
-        <TeamMemberCard
+      <TeamMemberCard
         name="Punnapong Akkarachotinan"
         role="FullStack Developer"
         emoji={<img src={Potter_Profile} alt="Potter_Profile" />}
         bio="Full Stack สายอเนกประสงค์ รับมือได้ทุกงาน และพร้อมซัพพอร์ตทีมทุกสถานการณ์"
- />
+      />
     </div>
-
-
   </GameWindow>
 );
-
-
-
 
 const TeamMemberCard = ({ name, role, emoji, bio }) => (
   <div className="border-[4px] border-[#2f3542] p-4 md:p-6 bg-gray-50 flex flex-col h-full hover:bg-white hover:translate-y-[-4px] transition-all ]">
@@ -675,16 +670,53 @@ const BossScene = () => {
     email: "",
     strategy: "",
   });
+  const [status, setStatus] = useState("idle"); // idle, sending, success, error
 
   const handleSendMail = (e) => {
     e.preventDefault();
-    const subject = `New Quest Proposal from ${formData.name}`;
-    const body = `Name: ${formData.name}%0D%0AEmail: ${formData.email}%0D%0AStrategy: ${formData.strategy}`;
-    window.location.href = `mailto:temgoodboi@gmail.com?subject=${subject}&body=${body}`;
+    setStatus("sending");
+
+    // แทนที่ ID เหล่านี้ด้วยค่าจากหน้าเว็บ EmailJS ของคุณ
+    const serviceId = "service_47aym1h";
+    const templateId = "template_1hjvys6";
+    const publicKey = "PJvxSFnEu4JO6AYKX";
+
+    const templateParams = {
+      from_name: formData.name,
+      from_email: formData.email,
+      message: formData.strategy,
+      to_name: "Pixel Jam Team",
+    };
+
+    emailjs
+      .send(serviceId, templateId, templateParams, publicKey)
+      .then((response) => {
+        console.log("SUCCESS!", response.status, response.text);
+        setStatus("success");
+        setFormData({ name: "", email: "", strategy: "" }); // ล้างฟอร์ม
+
+        // ให้แจ้งเตือนหายไปเองหลัง 5 วินาที
+        setTimeout(() => setStatus("idle"), 5000);
+      })
+      .catch((err) => {
+        console.error("FAILED...", err);
+        setStatus("error");
+      });
   };
 
   return (
     <GameWindow title="FINAL_CHALLENGE.BOSS">
+      {status === "success" && (
+        <div className="mb-6 p-4 bg-green-100 border-[4px] border-green-500 text-green-700 font-thai font-bold animate-bounce flex items-center justify-center gap-3">
+          <CheckCircle2 /> ส่งสาส์นท้าทายสำเร็จ! ทีมงานกำลังเตรียมตัวรับศึก
+        </div>
+      )}
+
+      {status === "error" && (
+        <div className="mb-6 p-4 bg-red-100 border-[4px] border-red-500 text-red-700 font-thai font-bold flex items-center justify-center gap-3">
+          <X /> การส่งล้มเหลว! กรุณาตรวจสอบการเชื่อมต่ออินเทอร์เน็ต
+        </div>
+      )}
       <div className="flex flex-col items-center gap-8 py-2 md:py-6">
         {/* Boss Health Bar */}
         <div className="relative text-center w-full max-w-sm md:max-w-md shrink-0">
@@ -795,9 +827,18 @@ const BossScene = () => {
             </div>
             <button
               type="submit"
-              className="w-full bg-[#ff7eb6] text-white border-[5px] border-[#2f3542] p-5 md:p-8 font-thai text-[20px] font-bold shadow-[8px_8px_0px_#2f3542] active:shadow-none active:translate-x-2 active:translate-y-2 transition-all uppercase flex items-center justify-center gap-6"
+              disabled={status === "sending"}
+              className={`w-full text-white border-[5px] border-[#2f3542] p-5 md:p-8 font-thai text-[20px] font-bold shadow-[8px_8px_0px_#2f3542] active:shadow-none active:translate-x-2 active:translate-y-2 transition-all uppercase flex items-center justify-center gap-6 
+                ${
+                  status === "sending"
+                    ? "bg-gray-400 cursor-not-allowed"
+                    : "bg-[#ff7eb6] hover:bg-[#ff5a9d]"
+                }`}
             >
-              <Mail size={24} /> INITIATE BATTLE / ส่งข้อมูลท้าทาย
+              <Mail size={24} />
+              {status === "sending"
+                ? "CASTING SPELL... (กำลังส่ง)"
+                : "INITIATE BATTLE / ส่งข้อมูลท้าทาย"}
             </button>
           </form>
         </div>
