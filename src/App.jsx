@@ -24,6 +24,7 @@ import {
   ExternalLink,
   Info,
   CheckCircle2,
+  Filter,
 } from "lucide-react";
 
 // --- UI Components ---
@@ -314,11 +315,13 @@ const SkillItem = ({ icon, title, level, desc }) => (
 
 const QuestsScene = () => {
   const [selectedQuest, setSelectedQuest] = useState(null);
+  const [activeFilter, setActiveFilter] = useState("ALL");
 
   const questData = [
     {
       id: 1,
       name: "E-Commerce Dungeon",
+      category: "E-COMMERCE",
       desc: "แพลตฟอร์มขายสินค้าที่รองรับผู้ใช้งานหลักแสนคนต่อวัน",
       details:
         "โปรเจกต์นี้เป็นการสร้างระบบ Marketplace ขนาดใหญ่ที่รองรับการชำระเงินหลายรูปแบบ การจัดการสต็อกสินค้าแบบ Real-time และระบบรักษาความปลอดภัยของข้อมูลลูกค้าขั้นสูงสุด",
@@ -328,6 +331,7 @@ const QuestsScene = () => {
     {
       id: 2,
       name: "Social Hub Quest",
+      category: "SOCIAL",
       desc: "คอมมูนิตี้สำหรับเหล่านักสะสม Pixel Art ทั่วโลก",
       details:
         "พื้นที่สำหรับศิลปินดิจิทัลในการแบ่งปันผลงานพิกเซลอาร์ต มีระบบประมูล NFT และห้องแชทสไตล์เรโทรสำหรับสมาชิก",
@@ -337,29 +341,74 @@ const QuestsScene = () => {
     {
       id: 3,
       name: "Crypto Vault Raid",
+      category: "BLOCKCHAIN",
       desc: "ระบบจัดการสินทรัพย์ดิจิทัลที่มีความปลอดภัยระดับสูงสุด",
       details:
         "แอปพลิเคชันสำหรับตรวจสอบและจัดการเหรียญคริปโต พร้อมระบบแจ้งเตือนราคาแบบด่วนและกราฟวิเคราะห์แนวโน้มตลาด",
       emoji: "🔐",
       tech: ["Flutter", "GraphQL", "Python", "Docker"],
     },
+    {
+      id: 4,
+      name: "Inventory Mage Tool",
+      category: "E-COMMERCE",
+      desc: "เครื่องมือจัดการคลังสินค้าอัจฉริยะสำหรับร้านค้าขนาดกลาง",
+      details:
+        "ระบบหลังบ้านที่ช่วยพ่อค้าแม่ค้าออนไลน์วิเคราะห์ยอดขายและทำนายแนวโน้มสินค้าที่กำลังจะหมดสต็อกอัตโนมัติ",
+      emoji: "📦",
+      tech: ["Vue.js", "Go", "MongoDB"],
+    },
   ];
+
+  const filters = ["ALL", "E-COMMERCE", "SOCIAL", "BLOCKCHAIN"];
+  const filteredQuests =
+    activeFilter === "ALL"
+      ? questData
+      : questData.filter((q) => q.category === activeFilter);
 
   return (
     <>
       <GameWindow title="WORLD_MAP.MAP">
-        <h2 className="font-thai text-2xl md:text-3xl font-bold mb-8 uppercase text-[#2f3542]">
-          Completed Quests / ภารกิจที่สำเร็จ
-        </h2>
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8 border-b-4 border-gray-100 pb-6">
+          <h2 className="font-thai text-2xl md:text-3xl font-bold uppercase text-[#2f3542]">
+            Completed Quests
+          </h2>
+
+          {/* Filter Bar */}
+          <div className="flex flex-wrap gap-2">
+            {filters.map((f) => (
+              <button
+                key={f}
+                onClick={() => setActiveFilter(f)}
+                className={`font-pixel text-[8px] md:text-[10px] px-3 py-1.5 border-[3px] transition-all ${
+                  activeFilter === f
+                    ? "bg-[#ff7eb6] border-[#2f3542] text-white"
+                    : "bg-white border-gray-200 text-gray-400 hover:border-[#2f3542]"
+                }`}
+              >
+                {f}
+              </button>
+            ))}
+          </div>
+        </div>
+
         <div className="space-y-4 md:space-y-6">
-          {questData.map((quest) => (
-            <QuestCard
-              key={quest.id}
-              name={quest.name}
-              desc={quest.desc}
-              onDetails={() => setSelectedQuest(quest)}
-            />
-          ))}
+          {filteredQuests.length > 0 ? (
+            filteredQuests.map((quest) => (
+              <QuestCard
+                key={quest.id}
+                name={quest.name}
+                desc={quest.desc}
+                onDetails={() => setSelectedQuest(quest)}
+              />
+            ))
+          ) : (
+            <div className="text-center py-12 border-4 border-dashed border-gray-100">
+              <p className="font-thai text-gray-400">
+                ยังไม่มีภารกิจในหมวดหมู่นี้...
+              </p>
+            </div>
+          )}
         </div>
       </GameWindow>
 
@@ -376,7 +425,10 @@ const QuestsScene = () => {
                 {selectedQuest.emoji}
               </div>
               <div className="text-center sm:text-left">
-                <h3 className="font-pixel text-xl md:text-2xl mb-3 text-[#ff7eb6] uppercase leading-none">
+                <div className="font-pixel text-[10px] text-pink-500 mb-2 uppercase">
+                  {selectedQuest.category}
+                </div>
+                <h3 className="font-pixel text-xl md:text-2xl mb-3 text-[#2f3542] uppercase leading-none">
                   {selectedQuest.name}
                 </h3>
                 <div className="flex items-center justify-center sm:justify-start gap-3 text-green-600 font-bold font-thai text-xl">
@@ -470,30 +522,6 @@ const PartyScene = () => (
       Party Members / สมาชิกในทีม
     </h2>
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
-      <TeamMemberCard
-        name="Alex"
-        role="Lead Developer"
-        emoji="🧑‍💻"
-        bio="หัวหน้าทีมพัฒนาที่เปลี่ยน Logic ที่ซับซ้อนให้กลายเป็นเวทมนตร์"
-      />
-      <TeamMemberCard
-        name="Alex"
-        role="Lead Developer"
-        emoji="🧑‍💻"
-        bio="หัวหน้าทีมพัฒนาที่เปลี่ยน Logic ที่ซับซ้อนให้กลายเป็นเวทมนตร์"
-      />
-      <TeamMemberCard
-        name="Alex"
-        role="Lead Developer"
-        emoji="🧑‍💻"
-        bio="หัวหน้าทีมพัฒนาที่เปลี่ยน Logic ที่ซับซ้อนให้กลายเป็นเวทมนตร์"
-      />
-      <TeamMemberCard
-        name="Alex"
-        role="Lead Developer"
-        emoji="🧑‍💻"
-        bio="หัวหน้าทีมพัฒนาที่เปลี่ยน Logic ที่ซับซ้อนให้กลายเป็นเวทมนตร์"
-      />
       <TeamMemberCard
         name="Alex"
         role="Lead Developer"
