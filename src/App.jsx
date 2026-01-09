@@ -1,15 +1,18 @@
 import React, { useState, useEffect } from "react";
-import {Gamepad2, Users,Map as MapIcon, Sword,} from "lucide-react"; 
-import { MessageCircleMore } from 'lucide-react';
+import { Gamepad2, Users, Map as MapIcon, Sword } from "lucide-react";
+import { MessageCircleMore } from "lucide-react";
+
+// Import Assets สำหรับ Preloading
+import logo from "./assets/logo.png";
+import logo2 from "./assets/logo2.png";
+
 // Import Scene Components
 import TitleScene from "./components/TitleScene";
 import AbilitiesScene from "./components/AbilitiesScene";
 import QuestsScene from "./components/QuestsScene";
 import PartyScene from "./components/PartyScene";
 import Contact from "./components/Contact";
-import Comment  from "./components/Comment";
-
-
+import Comment from "./components/Comment";
 
 // Import UI Components
 import MenuButton from "./components/MenuButton";
@@ -18,11 +21,21 @@ export default function App() {
   const [currentScene, setCurrentScene] = useState("title");
 
   useEffect(() => {
+    // 1. Load Google Fonts
     const link = document.createElement("link");
     link.href =
       "https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Mitr:wght@300;400;500&family=VT323&display=swap";
     link.rel = "stylesheet";
     document.head.appendChild(link);
+
+    // 2. Image Preloading: โหลดรูปรอไว้เพื่อลดอาการ Flicker (UX)
+    const preloadImages = (imageArray) => {
+      imageArray.forEach((path) => {
+        const img = new Image();
+        img.src = path;
+      });
+    };
+    preloadImages([logo, logo2]);
   }, []);
 
   const navItems = [
@@ -32,7 +45,6 @@ export default function App() {
     { id: "party", label: "สมาชิกในทีม", icon: Users },
     { id: "Contact", label: "ช่องทางการติดต่อ", icon: Users },
     { id: "comment", label: "ความคิดเห็น", icon: MessageCircleMore },
-
   ];
 
   const renderScene = () => {
@@ -47,7 +59,7 @@ export default function App() {
         return <PartyScene />;
       case "Contact":
         return <Contact />;
-        case "comment":
+      case "comment":
         return <Comment />;
       default:
         return <TitleScene />;
@@ -105,15 +117,15 @@ export default function App() {
             </div>
           </aside>
 
-          {/* MAIN VIEWPORT */}
-          <div className="flex-1 w-full flex flex-col items-center justify-center min-h-[500px] md:min-h-[600px]">
+          {/* MAIN VIEWPORT - ปรับปรุง flex-1 และ w-full เพื่อขยายกว้างเต็มพื้นที่ */}
+          <div className="flex-1 w-full flex flex-col items-center justify-start min-h-[500px] md:min-h-[600px]">
             {renderScene()}
           </div>
         </div>
       </div>
 
       {/* BOTTOM NAVIGATION (Mobile/Tablet Only) */}
-      <nav className="lg:hidden fixed bottom-0 left-0 right-0 z-50 bg-white border-t-[4px] border-[#2f3542] flex justify-around items-stretch shadow-[0_-4px_10px_rgba(0,0,0,0.1)] h-20">
+      <nav className="lg:hidden fixed bottom-0 left-0 right-0 z-50 bg-white border-t-[4px] border-[#2f3542] flex justify-around items-stretch shadow-[0_-4px_10px_rgba(0,0,0,0.1)] h-20 overflow-x-auto">
         {navItems.map((item) => (
           <MenuButton
             key={item.id}

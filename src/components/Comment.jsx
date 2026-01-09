@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-import { Star, User, MoreVertical, CheckCircle } from "lucide-react";
-import GameWindow from "./GameWindow"; // มั่นใจว่า path ถูกต้อง
+import { Star, MoreVertical, CheckCircle } from "lucide-react";
+import GameWindow from "./GameWindow";
 
 const ReviewScene = () => {
-  // Mockup ข้อมูลรีวิวจากลูกค้า
   const [reviews] = useState([
     {
       id: 1,
@@ -76,7 +75,6 @@ const ReviewScene = () => {
   );
 };
 
-// Sub-component สำหรับดาว
 const RenderStars = ({ rating }) => (
   <div className="flex gap-1 mb-2">
     {[...Array(5)].map((_, i) => (
@@ -90,45 +88,35 @@ const RenderStars = ({ rating }) => (
   </div>
 );
 
-// Sub-component สำหรับการ์ดรีวิว
 const ReviewCard = ({ data }) => (
-  <div className="flex flex-col md:flex-row gap-4">
-    {/* Avatar Container */}
-    <div className="flex-shrink-0">
-      <div className="w-12 h-12 border-[3px] border-[#2f3542] shadow-[3px_3px_0px_rgba(0,0,0,0.1)] flex items-center justify-center bg-gray-50 text-gray-400">
-        <User size={24} />
-      </div>
-    </div>
-
-    {/* Content Area */}
-    <div className="flex-1">
-      <div className="bg-white border-[4px] border-[#2f3542] p-5 shadow-[6px_6px_0px_rgba(0,0,0,0.05)] relative">
-        <div className="flex justify-between items-start mb-1">
-          <div>
-            <div className="flex flex-wrap items-center gap-2 mb-1">
-              <span className="font-bold text-[#2f3542] text-lg font-thai">
-                {data.author}
-              </span>
-              {data.verified && (
-                <div className="flex items-center gap-1 bg-green-50 text-green-700 px-2 py-0.5 border-[2px] border-green-700 text-[9px] font-black uppercase">
-                  <CheckCircle size={10} /> Verified
-                </div>
-              )}
-            </div>
-            <RenderStars rating={data.rating} />
-            <span className="block text-[10px] text-gray-400 font-bold uppercase tracking-widest">
-              {data.date}
+  <div className="w-full">
+    <div className="bg-white border-[4px] border-[#2f3542] p-5 shadow-[6px_6px_0px_rgba(0,0,0,0.05)] relative group hover:bg-gray-50 transition-colors">
+      <div className="flex justify-between items-start mb-1">
+        <div>
+          <div className="flex flex-wrap items-center gap-2 mb-1">
+            <span className="font-bold text-[#2f3542] text-lg font-thai">
+              {data.author}
             </span>
+            {data.verified && (
+              <div className="flex items-center gap-1 bg-green-50 text-green-700 px-2 py-0.5 border-[2px] border-green-700 text-[9px] font-black uppercase">
+                <CheckCircle size={10} /> Verified Buyer
+              </div>
+            )}
           </div>
-          <button className="text-[#2f3542] opacity-30 hover:opacity-100 transition-opacity">
-            <MoreVertical size={18} />
-          </button>
+          <RenderStars rating={data.rating} />
+          <span className="block text-[10px] text-gray-400 font-bold uppercase tracking-widest">
+            {data.date}
+          </span>
         </div>
 
-        <p className="text-[#2f3542] leading-relaxed font-thai text-base md:text-lg mt-3">
-          "{data.content}"
-        </p>
+        <button className="text-[#2f3542] opacity-20 group-hover:opacity-100 transition-opacity p-1">
+          <MoreVertical size={18} />
+        </button>
       </div>
+
+      <p className="text-[#2f3542] leading-relaxed font-thai text-base md:text-lg mt-4 italic">
+        "{data.content}"
+      </p>
     </div>
   </div>
 );

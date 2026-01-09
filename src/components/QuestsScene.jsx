@@ -11,7 +11,7 @@ const QuestsScene = () => {
   const questData = [
     {
       id: 1,
-      name: "E-Commerce Dungeon",
+      name: "E-Commerce Dungeon ",
       category: "E-COMMERCE",
       desc: "แพลตฟอร์มขายสินค้าที่รองรับผู้ใช้งานหลักแสนคนต่อวัน",
       details:
@@ -66,7 +66,7 @@ const QuestsScene = () => {
   }, [activeFilter, searchQuery]);
 
   return (
-    <div className="min-h-screen  p-4 md:p-8 lg:p-12">
+    <div className="w-full flex flex-col">
       {/* ใช้งาน GameWindow เป็น Layout หลัก */}
       <GameWindow title="WORLD_MAP.MAP">
         <div className="flex flex-col space-y-6 mb-8 border-b-4 border-gray-100 pb-8">
