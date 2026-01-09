@@ -34,7 +34,7 @@ const AbilitiesScene = () => (
 
 const SkillItem = ({ icon, title, desc }) => (
   <div className="flex gap-5 p-5 border-[4px] border-dashed border-gray-200 hover:border-solid hover:border-[#2f3542] transition-all group cursor-pointer bg-white shadow-sm hover:shadow-md">
-    <div className="bg-gray-50 p-4 border-[2px] border-gray-200 group-hover:bg-[#ff7eb620] group-hover:border-[#ff7eb6] flex items-center justify-center shrink-0">
+    <div className="bg-gray-50 p-4 border-[2px] border-gray-200 group-hover:bg-[#ff7eb620] flex items-center justify-center shrink-0">
       {React.cloneElement(icon, { size: 32 })}
     </div>
     <div className="flex-1">
