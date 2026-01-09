@@ -39,7 +39,7 @@ export default function App() {
   }, []);
 
   const navItems = [
-    { id: "title", label: "หน้าหลักก", icon: Gamepad2 },
+    { id: "title", label: "หน้าหลัก", icon: Gamepad2 },
     { id: "abilities", label: "ความสามารถ", icon: Sword },
     { id: "quests", label: "ภารกิจ", icon: MapIcon },
     { id: "party", label: "สมาชิกในทีม", icon: Users },
@@ -112,7 +112,7 @@ export default function App() {
                 Active Quest:
               </h4>
               <p className="font-thai text-[16px] leading-tight text-[#2f3542]">
-                "ออกแบบระบบที่รองรับทุกหน้าจออย่างสมบูรณ์"
+                "Website ร้านดอกไม้ Flower For You"
               </p>
             </div>
           </aside>

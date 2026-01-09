@@ -19,7 +19,7 @@ const TitleScene = ({ onStart }) => {
             <img
               src={logo2}
               alt="Pixel Jam Logo"
-              className="w-10 md:w-70"
+              className="w-70 "
               onLoad={() => setIsLoaded(true)} // สั่งแสดงเมื่อโหลดเสร็จ
             />
           </div>
