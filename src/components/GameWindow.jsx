@@ -1,7 +1,14 @@
 import React from "react";
 import { X } from "lucide-react";
 
-const GameWindow = ({ children, title, onClose, isModal = false }) => (
+// เพิ่ม prop noPadding เพื่อควบคุมระยะขอบข้างใน
+const GameWindow = ({
+  children,
+  title,
+  onClose,
+  isModal = false,
+  noPadding = false,
+}) => (
   <div
     className={`
     ${
@@ -14,7 +21,7 @@ const GameWindow = ({ children, title, onClose, isModal = false }) => (
     <div
       className={`
       relative bg-[#fff] border-[4px] border-[#2f3542] shadow-[8px_8px_0px_rgba(0,0,0,0.1)] md:shadow-[12px_12px_0px_rgba(0,0,0,0.1)] flex flex-col w-full animate-[zoomIn_0.3s_ease-out]
-      ${isModal ? "max-w-2xl" : "max-w-4xl"}
+      ${isModal ? "max-w-2xl" : "max-w-6xl"} 
     `}
     >
       <div className="bg-[#2f3542] p-2 flex justify-between items-center shrink-0">
@@ -30,7 +37,12 @@ const GameWindow = ({ children, title, onClose, isModal = false }) => (
           </button>
         )}
       </div>
-      <div className="p-4 md:p-8 overflow-y-auto max-h-[70vh] font-thai text-lg md:text-xl leading-relaxed">
+      {/* ปรับตรงนี้: ถ้า noPadding เป็น true ให้ p-0 ถ้าไม่ให้ใช้ padding เดิม */}
+      <div
+        className={`${
+          noPadding ? "p-0" : "p-4 md:p-8"
+        } overflow-y-auto max-h-[85vh] font-thai text-lg md:text-xl leading-relaxed`}
+      >
         {children}
       </div>
     </div>
