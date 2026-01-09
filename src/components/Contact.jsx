@@ -11,7 +11,7 @@ import {
 } from "lucide-react";
 import emailjs from "@emailjs/browser";
 
-const BossScene = () => {
+const Contact = () => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -211,4 +211,4 @@ const SocialLink = ({ icon, label, color }) => (
   </a>
 );
 
-export default BossScene;
+export default Contact;

@@ -6,7 +6,7 @@ import TitleScene from "./components/TitleScene";
 import AbilitiesScene from "./components/AbilitiesScene";
 import QuestsScene from "./components/QuestsScene";
 import PartyScene from "./components/PartyScene";
-import BossScene from "./components/BossScene";
+import Contact from "./components/Contact";
 import Comment  from "./components/Comment";
 
 
@@ -30,8 +30,9 @@ export default function App() {
     { id: "abilities", label: "ความสามารถ", icon: Sword },
     { id: "quests", label: "ภารกิจ", icon: MapIcon },
     { id: "party", label: "สมาชิกในทีม", icon: Users },
-    { id: "boss", label: "ช่องทางการติดต่อ", icon: Users },
+    { id: "Contact", label: "ช่องทางการติดต่อ", icon: Users },
     { id: "comment", label: "ความคิดเห็น", icon: MessageCircleMore },
+
   ];
 
   const renderScene = () => {
@@ -44,8 +45,8 @@ export default function App() {
         return <QuestsScene />;
       case "party":
         return <PartyScene />;
-      case "boss":
-        return <BossScene />;
+      case "Contact":
+        return <Contact />;
         case "comment":
         return <Comment />;
       default:
