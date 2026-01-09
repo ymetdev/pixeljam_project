@@ -255,7 +255,7 @@ const QuestCard = ({ name, desc, onDetails }) => (
         <div className="w-10 h-10 bg-green-100 border-[3px] border-green-500 flex items-center justify-center text-green-600 shrink-0 font-bold text-xl shadow-inner">
           ✓
         </div>
-        <h3 className="text-sm md:text-base font-black group-hover:text-[#ff7eb6] leading-none uppercase tracking-wide transition-colors">
+        <h3 className="text-sm md:text-base font-black group-hover:text-[#a29bfe20] leading-none uppercase tracking-wide transition-colors">
           {name}
         </h3>
       </div>
