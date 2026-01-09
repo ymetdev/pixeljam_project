@@ -1,11 +1,13 @@
 import React from "react";
+import logo from "../assets/logo.png";
+import logo2 from "../assets/logo2.png";
 
 const TitleScene = ({ onStart }) => (
   <div className="text-center flex flex-col items-center justify-center py-4 md:py-12 w-full animate-[zoomIn_0.3s_ease-out]">
     <div className="animate-float mb-6 md:mb-10">
       <div className="relative inline-block mb-4">
         <div className="text-7xl md:text-9xl mb-4 text-[#2f3542] drop-shadow-lg">
-          🛸
+          <img src={logo2} alt="Pixel Jam Logo" className="w-10 md:w-70" />
         </div>
         <div className="absolute -top-2 -right-4 bg-[#ff7eb6] p-2 md:p-3 border-[3px] md:border-[4px] border-[#2f3542] font-pixel text-[8px] md:text-[10px] text-white uppercase shadow-[4px_4px_0_black]">
           READY!
