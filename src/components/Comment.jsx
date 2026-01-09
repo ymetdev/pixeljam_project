@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { MessageSquare, ThumbsUp, Reply, MoreVertical, Send, User, Trophy, Shield } from 'lucide-react';
+import GameWindow from './GameWindow';
 
 const App = () => {
   const [comments, setComments] = useState([
@@ -10,7 +11,7 @@ const App = () => {
       avatar: null,
       content: "นี่เป็นดีไซน์ที่ดูสะอาดตามากครับ! ชอบการใช้สีที่ดูสบายตาแบบนี้",
       timestamp: "2 ชม. ที่แล้ว",
-      
+
       replies: [
         {
           id: 101,
@@ -30,7 +31,7 @@ const App = () => {
       avatar: null,
       content: "อยากให้เพิ่มโหมดมืด (Dark Mode) เข้าไปด้วยจังเลยค่ะ จะได้อ่านตอนกลางคืนได้สะดวก",
       timestamp: "30 นาทีที่แล้ว",
-      
+
       replies: []
     }
   ]);
@@ -39,7 +40,7 @@ const App = () => {
 
   const handlePostComment = () => {
     if (!newComment.trim()) return;
-    
+
     const comment = {
       id: Date.now(),
       author: "คุณ (Player 1)",
@@ -56,6 +57,7 @@ const App = () => {
   };
 
   const CommentCard = ({ data, isReply = false }) => (
+
     <div className={`flex gap-4 ${isReply ? 'ml-8 md:ml-16 mt-6' : 'mt-8'}`}>
       {/* Avatar Container */}
       <div className="flex-shrink-0">
@@ -81,14 +83,14 @@ const App = () => {
               <MoreVertical size={18} />
             </button>
           </div>
-          
+
           <p className="text-[#2f3542] leading-relaxed font-medium">
             {data.content}
           </p>
         </div>
 
         {/* Action Buttons */}
-       
+
 
         {/* Nested Replies */}
         {data.replies && data.replies.map(reply => (
@@ -99,22 +101,22 @@ const App = () => {
   );
 
   return (
-    <div className="min-h-screen bg-[#f1f2f6] py-12 px-4 sm:px-6 font-sans">
+   <GameWindow title="GUILD_CHAT_LOG.EXE" >
+
       <div className="max-w-3xl mx-auto">
-        
         {/* Header Panel */}
         <div className="bg-[#2f3542] border-[4px] border-black p-6 shadow-[8px_8px_0px_rgba(0,0,0,0.1)] mb-10 flex items-center justify-between">
           <div className="flex items-center gap-4">
             <div className="bg-yellow-400 border-[3px] border-black p-2 animate-bounce">
-                <Trophy size={24} className="text-black" />
+              <Trophy size={24} className="text-black" />
             </div>
             <div>
-                <h1 className="text-2xl font-black text-white uppercase tracking-[0.1em]">
-                    Guild Chat Log
-                </h1>
-                <p className="text-pink-400 text-xs font-bold uppercase tracking-widest">
-                    Total Comments: {comments.length + comments.reduce((acc, c) => acc + c.replies.length, 0)}
-                </p>
+              <h1 className="text-2xl font-black text-white uppercase tracking-[0.1em]">
+                Guild Chat Log
+              </h1>
+              <p className="text-pink-400 text-xs font-bold uppercase tracking-widest">
+                Total Comments: {comments.length + comments.reduce((acc, c) => acc + c.replies.length, 0)}
+              </p>
             </div>
           </div>
           <MessageSquare className="text-white/20" size={40} />
@@ -133,7 +135,7 @@ const App = () => {
               placeholder="กรอกข้อความของคุณที่นี่..."
               className="w-full p-5 border-[4px] border-[#2f3542] focus:bg-pink-50 focus:outline-none font-medium text-lg shadow-inner min-h-[120px] resize-none"
             />
-            <button 
+            <button
               onClick={handlePostComment}
               className="mt-4 w-full md:w-auto md:absolute md:bottom-6 md:right-6 bg-[#ff7eb6] hover:bg-[#ff5a9d] text-white border-[4px] border-[#2f3542] py-3 px-8 font-bold shadow-[4px_4px_0px_#2f3542] active:shadow-none active:translate-x-1 active:translate-y-1 transition-all uppercase flex items-center justify-center gap-3"
             >
@@ -143,7 +145,7 @@ const App = () => {
           </div>
         </div>
 
-    
+
 
         {/* Comments List */}
         <div className="space-y-6">
@@ -160,7 +162,8 @@ const App = () => {
         </div>
 
       </div>
-    </div>
+
+    </GameWindow>
   );
 };
 
