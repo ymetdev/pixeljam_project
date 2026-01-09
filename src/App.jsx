@@ -1,10 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-  Gamepad2,
-  Users,
-  Map as MapIcon,
-  Sword,
-} from "lucide-react";
+import {Gamepad2, Users, Map as MapIcon, Sword,} from "lucide-react";
 
 // Import Scene Components
 import TitleScene from "./components/TitleScene";
@@ -12,6 +7,7 @@ import AbilitiesScene from "./components/AbilitiesScene";
 import QuestsScene from "./components/QuestsScene";
 import PartyScene from "./components/PartyScene";
 import BossScene from "./components/BossScene";
+import Comment  from "./components/Comment";
 
 // Import UI Components
 import MenuButton from "./components/MenuButton";
@@ -33,6 +29,7 @@ export default function App() {
     { id: "quests", label: "ภารกิจ", icon: MapIcon },
     { id: "party", label: "สมาชิกในทีม", icon: Users },
     { id: "boss", label: "ช่องทางการติดต่อ", icon: Users },
+    { id: "comment", label: "ความคิดเห็น", icon: Users },
   ];
 
   const renderScene = () => {
@@ -47,6 +44,8 @@ export default function App() {
         return <PartyScene />;
       case "boss":
         return <BossScene />;
+        case "comment":
+        return <Comment />;
       default:
         return <TitleScene />;
     }
