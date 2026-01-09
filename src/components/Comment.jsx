@@ -112,7 +112,7 @@ const App = () => {
                 <h1 className="text-2xl font-black text-white uppercase tracking-[0.1em]">
                     Guild Chat Log
                 </h1>
-                <p className="text-yellow-400 text-xs font-bold uppercase tracking-widest">
+                <p className="text-pink-400 text-xs font-bold uppercase tracking-widest">
                     Total Comments: {comments.length + comments.reduce((acc, c) => acc + c.replies.length, 0)}
                 </p>
             </div>
@@ -143,16 +143,7 @@ const App = () => {
           </div>
         </div>
 
-        {/* Sort Options */}
-        {/* <div className="flex justify-end mb-6">
-          <div className="bg-[#2f3542] border-[3px] border-black px-4 py-1">
-            <select className="bg-transparent text-xs font-bold text-white focus:outline-none cursor-pointer uppercase py-1">
-                <option className="bg-[#2f3542]">Newest First</option>
-                <option className="bg-[#2f3542]">Top Rated</option>
-                <option className="bg-[#2f3542]">Oldest</option>
-            </select>
-          </div>
-        </div> */}
+    
 
         {/* Comments List */}
         <div className="space-y-6">
